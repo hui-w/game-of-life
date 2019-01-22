@@ -121,11 +121,11 @@ Matrix.prototype = {
 
   getNeighborCount: function(x, y) {
     var count = 0;
-    [-1, 1].forEach(function(dx) {
-      [-1, 1].forEach(function(dy) {
+    [-1, 0, 1].forEach(function(dx) {
+      [-1, 0, 1].forEach(function(dy) {
         var currentX = x + dx;
         var currentY = y + dy;
-        if (this.minions[this.getKey(currentX, currentY)]) {
+        if (!(currentX === 0 && currentY === 0) && this.minions[this.getKey(currentX, currentY)]) {
           count++;
         }
       }.bind(this))
