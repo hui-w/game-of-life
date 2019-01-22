@@ -5,7 +5,7 @@
  */
 var Config = {
   Matrix: {
-    timerDelay: 200
+    timerDelay: 500
   },
   Planet: {
     gridSize: 10
