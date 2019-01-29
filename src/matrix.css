@@ -31,15 +31,17 @@ body {
   padding: 2px;
 }
 
-.toolbar img {
+.svg-button {
   margin: 2px 4px 0 4px;
   padding: 4px;
+  color: #f00;
+  border-radius: 4px;
 }
 
-.toolbar img:hover {
+.svg-button:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.toolbar img:active {
+.svg-button:active {
   background-color: rgba(0, 0, 0, 0.4);
 }

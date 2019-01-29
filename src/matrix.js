@@ -11,6 +11,11 @@ function Matrix() {
   this.minions = {};
   this.previewReady = false;
 
+  // Statuses: ready, playing, paused
+  this.status = "ready";
+
+  this.onStatusChanged = null;
+
   this.init();
 }
 
@@ -32,6 +37,30 @@ Matrix.prototype = {
 
     // Setup the timer to update the matrix
     matrixTimerHandler();
+
+    this.notifyStatys('ready');
+  },
+
+  notifyStatys: function(status) {
+    if (typeof this.onStatusChanged === "function") {
+      this.onStatusChanged(status);
+    }
+  },
+
+  play: function() {
+    this.notifyStatys('playing');
+  },
+
+  pause: function() {
+    this.notifyStatys('paused');
+  },
+
+  next: function() {
+
+  },
+
+  stop: function() {
+    this.notifyStatys('ready');
   },
 
   getKey: function(x, y) {

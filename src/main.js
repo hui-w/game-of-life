@@ -19,8 +19,12 @@ function matrix_main() {
     newElement.style.padding = wrapperPadding + "px";
     rootElement.appendChild(newElement);
 
-    // Create the matrix
+    // Create the matrix and toolbar
     matrix = new Matrix();
+    toolbar = new Toolbar();
+    matrix.onStatusChanged = function(status) {
+      toolbar.setStatus(status);
+    };
 
     // Crate the monitor and render the planet into the monitor
     var monitorWidth = width - wrapperPadding * 2;
@@ -33,9 +37,26 @@ function matrix_main() {
       matrix.render(monitor);
     };
 
-    // Create and render the toolbar
-    var toolbar = new Toolbar(matrix);
+    // Render the toolbar
     toolbar.renderInto(newElement);
+    toolbar.onClick = function(cmd) {
+      switch (cmd) {
+        case "play":
+          matrix.play();
+          break;
+        case "pause":
+          matrix.pause();
+          break;
+        case "next":
+          matrix.next();
+          break;
+        case "stop":
+          matrix.stop();
+          break;
+        default:
+          break;
+      }
+    };
 
     // Check if the window size is changed
     setInterval(checkWindowsize, 200);
