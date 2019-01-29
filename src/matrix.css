@@ -4,17 +4,42 @@
  * @licence MIT  
  */
 * {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
-html, body {
+
+html,
+body {
   overflow: hidden;
 }
 
 .hand-cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .move-cursor {
-    cursor: move;
+  cursor: move;
+}
+
+.toolbar {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  margin: 2px;
+  padding: 2px;
+}
+
+.toolbar img {
+  margin: 2px 4px 0 4px;
+  padding: 4px;
+}
+
+.toolbar img:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.toolbar img:active {
+  background-color: rgba(0, 0, 0, 0.4);
 }

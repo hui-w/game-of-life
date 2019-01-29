@@ -8,6 +8,7 @@ function matrix_main() {
   var height = document.documentElement.clientHeight;
   var matrix = null;
   var monitor = null;
+  var toolbar = null;
 
   addEventListener("load", function() {
     var wrapperPadding = Config.Misc.wrapperPadding;
@@ -31,6 +32,10 @@ function matrix_main() {
     monitor.onRedraw = function() {
       matrix.render(monitor);
     };
+
+    // Create and render the toolbar
+    var toolbar = new Toolbar(matrix);
+    toolbar.renderInto(newElement);
 
     // Check if the window size is changed
     setInterval(checkWindowsize, 200);
