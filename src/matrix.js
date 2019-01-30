@@ -38,21 +38,23 @@ Matrix.prototype = {
     // Setup the timer to update the matrix
     matrixTimerHandler();
 
-    this.notifyStatys('ready');
+    this.notifyStatus("ready");
   },
 
-  notifyStatys: function(status) {
+  notifyStatus: function(status) {
     if (typeof this.onStatusChanged === "function") {
       this.onStatusChanged(status);
     }
   },
 
   play: function() {
-    this.notifyStatys('playing');
+    this.status = "playing";
+    this.notifyStatus("playing");
   },
 
   pause: function() {
-    this.notifyStatys('paused');
+    this.status = "paused";
+    this.notifyStatus("paused");
   },
 
   next: function() {
@@ -60,11 +62,12 @@ Matrix.prototype = {
   },
 
   stop: function() {
-    this.notifyStatys('ready');
+    this.status = "ready";
+    this.notifyStatus("ready");
   },
 
   getKey: function(x, y) {
-    return x + '_' + y;
+    return x + "_" + y;
   },
 
   tick: function() {
