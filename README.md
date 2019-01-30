@@ -8,3 +8,6 @@ Every cell interacts with its eight neighbours, which are the cells that are hor
 * Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
 
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+## Demo
+https://hui-w.github.io/game-of-life/
