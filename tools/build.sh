@@ -4,7 +4,7 @@ YUI="./yuicompressor-2.4.8.jar"
 FILE_NAME="game-of-life-0.1.0"
 RES_DIR="../res"
 SRC_DIR="../src"
-OUT_DIR="../release"
+OUT_DIR="../docs"
 
 echo "Deleting old content of output..."
 rm -rf $OUT_DIR
