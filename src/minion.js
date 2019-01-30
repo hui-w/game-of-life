@@ -1,4 +1,11 @@
-function Minion(x, y, status = 0) {
+/**
+ * @author Wang, Hui (huiwang@qlike.com)
+ * @repo https://github.com/hui-w/game-of-life
+ * @licence MIT  
+ *
+ * The Minion class
+ */
+function Minion(x, y, status) {
   // Inherit all members from the base
   PlanetItem(Minion);
 
@@ -6,11 +13,16 @@ function Minion(x, y, status = 0) {
   this.setSize(1, 1);
   this.setPosition(x, y);
 
-  this.status = status;
+  /**
+   * Status:
+   *  0:  Living
+   *  -1: Dying
+   *  1:  To be born
+   */
+  this.status = status === undefined ? 0 : status;
 }
 
 Minion.prototype = {
-
   render: function(monitor) {
     if (!this.isInMonitor(monitor)) {
       //no need to display if the item is out of the monitor boundaries
