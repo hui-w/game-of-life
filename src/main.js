@@ -22,9 +22,11 @@ function matrix_main() {
     // Create the matrix and toolbar
     matrix = new Matrix();
     toolbar = new Toolbar();
+    toolbar.renderInto(newElement);
     matrix.onStatusChanged = function(status) {
       toolbar.setStatus(status);
     };
+    matrix.init();
 
     // Crate the monitor and render the planet into the monitor
     var monitorWidth = width - wrapperPadding * 2;
@@ -37,8 +39,12 @@ function matrix_main() {
       matrix.render(monitor);
     };
 
+    // Attach the matrix timer tick handler
+    matrix.onTimerTick = function(timerCount) {
+      monitor.setMatrixTimerCount(timerCount);
+    }
+
     // Render the toolbar
-    toolbar.renderInto(newElement);
     toolbar.onClick = function(cmd) {
       switch (cmd) {
         case "play":

@@ -15,8 +15,7 @@ function Matrix() {
   this.status = "ready";
 
   this.onStatusChanged = null;
-
-  this.init();
+  this.onTimerTick = null;
 }
 
 Matrix.prototype = {
@@ -24,11 +23,33 @@ Matrix.prototype = {
     // Construct the Matrix
     this.planet = new Planet();
 
-    // Init random minions
-    this.initRandomMinions();
+    // Make the matrix ready
+    this.stop();
+  },
 
+  setTimerCount: function(timerCount) {
+    this.timerCount = timerCount;
+    if (typeof this.onTimerTick === "function") {
+      this.onTimerTick(this.timerCount);
+    }
+  },
+
+  setStatus: function(status) {
+    this.status = status;
+    if (typeof this.onStatusChanged === "function") {
+      this.onStatusChanged(status);
+    }
+  },
+
+  play: function() {
+    this.setStatus("playing");
+
+    // Auto play
     var matrixTimerHandler = function() {
-      this.timerCount++;
+      if (this.status !== "playing") {
+        return;
+      }
+
       this.tick();
 
       // Setup the timer for next round
@@ -37,33 +58,22 @@ Matrix.prototype = {
 
     // Setup the timer to update the matrix
     matrixTimerHandler();
-
-    this.notifyStatus("ready");
-  },
-
-  notifyStatus: function(status) {
-    if (typeof this.onStatusChanged === "function") {
-      this.onStatusChanged(status);
-    }
-  },
-
-  play: function() {
-    this.status = "playing";
-    this.notifyStatus("playing");
   },
 
   pause: function() {
-    this.status = "paused";
-    this.notifyStatus("paused");
+    this.setStatus("paused");
   },
 
   next: function() {
-
+    this.setStatus("paused");
+    this.tick();
   },
 
   stop: function() {
-    this.status = "ready";
-    this.notifyStatus("ready");
+    this.setStatus("ready");
+
+    // Init random minions
+    this.initRandomMinions();
   },
 
   getKey: function(x, y) {
@@ -76,6 +86,8 @@ Matrix.prototype = {
     } else {
       this.getPreview();
     }
+
+    this.setTimerCount(this.timerCount + 1);
 
     this.previewReady = !this.previewReady;
   },
@@ -181,5 +193,8 @@ Matrix.prototype = {
       var key = this.getKey(x, y);
       this.minions[key] = new Minion(x, y);
     }
+
+    // Reset the timer count
+    this.setTimerCount(0);
   },
 }

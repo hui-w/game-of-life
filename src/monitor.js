@@ -32,6 +32,8 @@ function Monitor(width, height) {
 
   // Callback of redrawing
   this.onRedraw = null;
+
+  this.matrixTimerCount = 0;
 }
 
 Monitor.prototype = {
@@ -364,9 +366,10 @@ Monitor.prototype = {
     context.save();
     context.font = "{0}px verdana".format(Config.Monitor.fontSize);
     context.fillStyle = "#333333";
-    var lblStr = "Monitor: {0}, {1}, {2}".format(
+    var lblStr = "Monitor: {0}, {1}, {2}, {3}".format(
       padNumber(this.offsetX, 4),
       padNumber(this.offsetY, 4),
+      padNumber(this.matrixTimerCount, 3),
       timeNow(5)
     );
     context.fillTextEx(lblStr, this.width, this.height, "right", "bottom");
@@ -388,6 +391,10 @@ Monitor.prototype = {
       x: px + Math.round(this.width / 2) - this.offsetX,
       y: py + Math.round(this.height / 2) - this.offsetY
     };
+  },
+
+  setMatrixTimerCount: function(timerCount) {
+    this.matrixTimerCount = timerCount;
   }
 }
 
