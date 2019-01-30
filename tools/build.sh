@@ -2,6 +2,7 @@
 
 YUI="./yuicompressor-2.4.8.jar"
 FILE_NAME="game-of-life-0.1.0"
+RES_DIR="../res"
 SRC_DIR="../src"
 OUT_DIR="../release"
 
@@ -42,5 +43,10 @@ rm -f $OUT_DIR/temp.minified.js
 echo "Preparing static files..."
 cp $SRC_DIR/index_release.html $OUT_DIR/index.html
 cp $SRC_DIR/matrix.css $OUT_DIR/$FILE_NAME.min.css
+
+cp $RES_DIR/apple-touch-icon.png $OUT_DIR/apple-touch-icon.png
+cp $RES_DIR/favicon16.png $OUT_DIR/favicon16.png
+cp $RES_DIR/favicon64.png $OUT_DIR/favicon64.png
+cp $RES_DIR/favicon.ico $OUT_DIR/favicon.ico
 
 echo "Done!"
