@@ -169,7 +169,7 @@ Matrix.prototype = {
       [-1, 0, 1].forEach(function(dy) {
         var currentX = x + dx;
         var currentY = y + dy;
-        if (!(currentX === 0 && currentY === 0) && this.minions[this.getKey(currentX, currentY)]) {
+        if (!(dx === 0 && dy === 0) && this.minions[this.getKey(currentX, currentY)]) {
           count++;
         }
       }.bind(this))
