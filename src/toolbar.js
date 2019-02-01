@@ -14,6 +14,8 @@ function Toolbar(matrix) {
   this.btnPause = null;
   this.btnNext = null;
   this.btnStop = null;
+
+  this.btnZoomIn = null;
 }
 
 Toolbar.prototype = {
@@ -55,41 +57,68 @@ Toolbar.prototype = {
       "class": "toolbar"
     });
 
-    this.btnPlay = this.frame.createChild("img", {
-      "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQxLjk5OSA0MS45OTkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQxLjk5OSA0MS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBkPSJNMzYuMDY4LDIwLjE3NmwtMjktMjBDNi43NjEtMC4wMzUsNi4zNjMtMC4wNTcsNi4wMzUsMC4xMTRDNS43MDYsMC4yODcsNS41LDAuNjI3LDUuNSwwLjk5OXY0MGMwLDAuMzcyLDAuMjA2LDAuNzEzLDAuNTM1LDAuODg2YzAuMTQ2LDAuMDc2LDAuMzA2LDAuMTE0LDAuNDY1LDAuMTE0YzAuMTk5LDAsMC4zOTctMC4wNiwwLjU2OC0wLjE3N2wyOS0yMGMwLjI3MS0wLjE4NywwLjQzMi0wLjQ5NCwwLjQzMi0wLjgyM1MzNi4zMzgsMjAuMzYzLDM2LjA2OCwyMC4xNzZ6IE03LjUsMzkuMDk1VjIuOTA0bDI2LjIzOSwxOC4wOTZMNy41LDM5LjA5NXoiLz48L3N2Zz4=",
-      "width": "32",
-      "height": "32",
-      "class": "svg-button",
-      "style": "display: none;"
-    });
+    this.btnPlay = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 41.999 41.999">',
+      '  <g fill="currentColor">',
+      '    <path d="M36.068,20.176l-29-20C6.761-0.035,6.363-0.057,6.035,0.114C5.706,0.287,5.5,0.627,5.5,0.999v40',
+      '      c0,0.372,0.206,0.713,0.535,0.886c0.146,0.076,0.306,0.114,0.465,0.114c0.199,0,0.397-0.06,0.568-0.177l29-20',
+      '      c0.271-0.187,0.432-0.494,0.432-0.823S36.338,20.363,36.068,20.176z M7.5,39.095V2.904l26.239,18.096L7.5,39.095z"/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
     this.btnPlay.addEventListener("click", this.handlePlayClick.bind(this), false);
 
-    this.btnPause = this.frame.createChild("img", {
-      "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIGQ9Ik0xNC41LDBjLTAuNTUyLDAtMSwwLjQ0Ny0xLDF2NDBjMCwwLjU1MywwLjQ0OCwxLDEsMXMxLTAuNDQ3LDEtMVYxQzE1LjUsMC40NDcsMTUuMDUyLDAsMTQuNSwweiIvPjxwYXRoIGQ9Ik0yNy41LDBjLTAuNTUyLDAtMSwwLjQ0Ny0xLDF2NDBjMCwwLjU1MywwLjQ0OCwxLDEsMXMxLTAuNDQ3LDEtMVYxQzI4LjUsMC40NDcsMjguMDUyLDAsMjcuNSwweiIvPjwvZz48L3N2Zz4=",
-      "width": "32",
-      "height": "32",
-      "class": "svg-button",
-      "style": "display: none;"
-    });
-
+    this.btnPause = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 42 42">',
+      '  <g fill="currentColor">',
+      '    <path d="M14.5,0c-0.552,0-1,0.447-1,1v40c0,0.553,0.448,1,1,1s1-0.447,1-1V1C15.5,0.447,15.052,0,14.5,0z"/>',
+      '    <path d="M27.5,0c-0.552,0-1,0.447-1,1v40c0,0.553,0.448,1,1,1s1-0.447,1-1V1C28.5,0.447,28.052,0,27.5,0z"/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
     this.btnPause.addEventListener("click", this.handlePauseClick.bind(this), false);
 
-    this.btnNext = this.frame.createChild("img", {
-      "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik0zNS41LDBjLTAuNTUyLDAtMSwwLjQ0Ny0xLDF2MTguMDk1TDcuMDY4LDAuMTc3QzYuNzYyLTAuMDM0LDYuMzY0LTAuMDU3LDYuMDM1LDAuMTE0QzUuNzA2LDAuMjg3LDUuNSwwLjYyOCw1LjUsMXY0MGMwLDAuMzcyLDAuMjA2LDAuNzEzLDAuNTM1LDAuODg2QzYuMTgxLDQxLjk2Miw2LjM0MSw0Miw2LjUsNDJjMC4xOTksMCwwLjM5Ny0wLjA2LDAuNTY4LTAuMTc3TDM0LjUsMjIuOTA1VjQxYzAsMC41NTMsMC40NDgsMSwxLDFzMS0wLjQ0NywxLTFWMUMzNi41LDAuNDQ3LDM2LjA1MiwwLDM1LjUsMHogTTcuNSwzOS4wOTZWMi45MDRMMzMuNzM5LDIxTDcuNSwzOS4wOTZ6Ii8+w5PDn8Ofw5/Dn8OfPC9zdmc+",
-      "width": "32",
-      "height": "32",
-      "class": "svg-button",
-      "style": "display: none;"
-    });
+    this.btnNext = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 42 42">',
+      '  <g fill="currentColor">',
+      '    <path d="M35.5,0c-0.552,0-1,0.447-1,1v18.095L7.068,0.177C6.762-0.034,6.364-0.057,6.035,0.114C5.706,0.287,5.5,0.628,5.5,1v40',
+      '      c0,0.372,0.206,0.713,0.535,0.886C6.181,41.962,6.341,42,6.5,42c0.199,0,0.397-0.06,0.568-0.177L34.5,22.905V41c0,0.553,0.448,1,1,1',
+      '      s1-0.447,1-1V1C36.5,0.447,36.052,0,35.5,0z M7.5,39.096V2.904L33.739,21L7.5,39.096z"/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
     this.btnNext.addEventListener("click", this.handleNextClick.bind(this), false);
 
-    this.btnStop = this.frame.createChild("img", {
-      "src": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDM2IDM2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzNiAzNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik0zNSwwSDFDMC40NDgsMCwwLDAuNDQ3LDAsMXYzNGMwLDAuNTUzLDAuNDQ4LDEsMSwxaDM0YzAuNTUyLDAsMS0wLjQ0NywxLTFWMUMzNiwwLjQ0NywzNS41NTIsMCwzNSwweiBNMzQsMzRIMlYyaDMyVjM0eiIvPjwvc3ZnPg==",
-      "width": "32",
-      "height": "32",
-      "class": "svg-button",
-      "style": "display: none;"
-    });
+    this.btnStop = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 36 36">',
+      '  <g fill="currentColor">',
+      '    <path d="M35,0H1C0.448,0,0,0.447,0,1v34c0,0.553,0.448,1,1,1h34c0.552,0,1-0.447,1-1V1C36,0.447,35.552,0,35,0z M34,34H2V2h32V34z" />',
+      '  </g>',
+      '</svg>'
+    ].join(""));
     this.btnStop.addEventListener("click", this.handleStopClick.bind(this), false);
+
+    this.btnZoomIn = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 52.966 52.966">',
+      '  <g fill="currentColor">',
+      '    <path d="M28.983,20h-6v-6c0-0.552-0.448-1-1-1s-1,0.448-1,1v6h-6c-0.552,0-1,0.448-1,1s0.448,1,1,1h6v6c0,0.552,0.448,1,1,1',
+      '      s1-0.448,1-1v-6h6c0.552,0,1-0.448,1-1S29.535,20,28.983,20z"/>',
+      '    <path d="M51.704,51.273L36.845,35.82c3.79-3.801,6.138-9.041,6.138-14.82c0-11.58-9.42-21-21-21s-21,9.42-21,21s9.42,21,21,21',
+      '      c5.083,0,9.748-1.817,13.384-4.832l14.895,15.491c0.196,0.205,0.458,0.307,0.721,0.307c0.25,0,0.499-0.093,0.693-0.279',
+      '      C52.074,52.304,52.086,51.671,51.704,51.273z M2.983,21c0-10.477,8.523-19,19-19s19,8.523,19,19s-8.523,19-19,19',
+      '      S2.983,31.477,2.983,21z"/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
   }
 }
