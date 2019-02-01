@@ -19,5 +19,11 @@ var Config = {
   },
   Misc: {
     wrapperPadding: 0
+  },
+  zoomIn: function() {
+    this.Planet.gridSize ++;
+  },
+  zoomOut: function() {
+    this.Planet.gridSize --;
   }
 }

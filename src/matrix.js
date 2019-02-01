@@ -6,13 +6,13 @@
  * The class Matrix owns everything of the "Matrix"
  */
 function Matrix() {
-  this.timerCount = 0;
+  this.timerCount = null;
   this.planet = null;
-  this.minions = {};
-  this.previewReady = false;
+  this.minions = null;
+  this.previewReady = null;
 
-  // Statuses: ready, playing, paused
-  this.status = "ready";
+  // Statuses: empty, ready, playing, paused
+  this.status = null;
 
   this.onStatusChanged = null;
   this.onTimerTick = null;
@@ -22,9 +22,40 @@ Matrix.prototype = {
   init: function() {
     // Construct the Matrix
     this.planet = new Planet();
+    this.initMinions();
 
-    // Make the matrix ready
-    this.stop();
+    // Notify the initial status
+    this.setStatus("empty");
+  },
+
+  initMinions: function() {
+    this.previewReady = false;
+    this.minions = {};
+    this.timerCount = 0;
+  },
+
+  initRandomMinions: function() {
+    // Clear before init
+    this.initMinions();
+
+    var minionsCount = 200;
+    var randStart = -9;
+    var randEnd = 9;
+    for (var i = 0; i <= minionsCount; i++) {
+      var retryCount = 0;
+      var x = rand(randStart, randEnd);
+      var y = rand(randStart, randEnd);
+      while (this.minions[this.getKey(x, y)] && retryCount < 10) {
+        retryCount++;
+        x = rand(randStart, randEnd);
+        y = rand(randStart, randEnd);
+      }
+      var key = this.getKey(x, y);
+      this.minions[key] = new Minion(x, y);
+    }
+
+    // Reset the timer count
+    this.setTimerCount(0);
   },
 
   setTimerCount: function(timerCount) {
@@ -39,6 +70,11 @@ Matrix.prototype = {
     if (typeof this.onStatusChanged === "function") {
       this.onStatusChanged(status);
     }
+  },
+
+  add: function() {
+    this.setStatus("ready");
+    this.initRandomMinions();
   },
 
   play: function() {
@@ -70,10 +106,8 @@ Matrix.prototype = {
   },
 
   stop: function() {
-    this.setStatus("ready");
-
-    // Init random minions
-    this.initRandomMinions();
+    this.setStatus("empty");
+    this.initMinions();
   },
 
   getKey: function(x, y) {
@@ -175,27 +209,5 @@ Matrix.prototype = {
       }.bind(this))
     }.bind(this));
     return count;
-  },
-
-  initRandomMinions: function() {
-    var minionsCount = 200;
-    var randStart = -9;
-    var randEnd = 9;
-    this.minions = [];
-    for (var i = 0; i <= minionsCount; i++) {
-      var retryCount = 0;
-      var x = rand(randStart, randEnd);
-      var y = rand(randStart, randEnd);
-      while (this.minions[this.getKey(x, y)] && retryCount < 10) {
-        retryCount++;
-        x = rand(randStart, randEnd);
-        y = rand(randStart, randEnd);
-      }
-      var key = this.getKey(x, y);
-      this.minions[key] = new Minion(x, y);
-    }
-
-    // Reset the timer count
-    this.setTimerCount(0);
   },
 }

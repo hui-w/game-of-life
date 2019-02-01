@@ -10,40 +10,27 @@ function Toolbar(matrix) {
   this.onClick = null;
 
   // Buttons
+  this.btnAdd = null;
   this.btnPlay = null;
   this.btnPause = null;
   this.btnNext = null;
   this.btnStop = null;
 
   this.btnZoomIn = null;
+  this.btnZoomOut = null;
 }
 
 Toolbar.prototype = {
-  handlePlayClick: function() {
-    if (typeof this.onClick === "function") {
-      this.onClick("play")
-    }
-  },
-
-  handlePauseClick: function() {
-    if (typeof this.onClick === "function") {
-      this.onClick("pause")
-    }
-  },
-
-  handleNextClick: function() {
-    if (typeof this.onClick === "function") {
-      this.onClick("next")
-    }
-  },
-
-  handleStopClick: function() {
-    if (typeof this.onClick === "function") {
-      this.onClick("stop")
+  handleButtonClick: function(key) {
+    return function() {
+      if (typeof this.onClick === "function") {
+        this.onClick(key)
+      }
     }
   },
 
   setStatus: function(status) {
+    this.btnAdd.style = status === "empty" || status === "ready" ? "display: inline;" : "display: none;";
     this.btnPlay.style = status === "paused" || status === "ready" ? "display: inline;" : "display: none;";
     this.btnPause.style = status === "playing" ? "display: inline;" : "display: none;";
     this.btnNext.style = status === "paused" || status === "ready" ? "display: inline;" : "display: none;";
@@ -57,6 +44,28 @@ Toolbar.prototype = {
       "class": "toolbar"
     });
 
+    this.btnAdd = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 42 42">',
+      '  <g fill="currentColor">',
+      '    <polygon points="42,20 22,20 22,0 20,0 20,20 0,20 0,22 20,22 20,42 22,42 22,22 42,22 "/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
+    this.btnAdd.addEventListener("click", this.handleButtonClick("add").bind(this), false);
+
+    this.btnStop = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 36 36">',
+      '  <g fill="currentColor">',
+      '    <path d="M35,0H1C0.448,0,0,0.447,0,1v34c0,0.553,0.448,1,1,1h34c0.552,0,1-0.447,1-1V1C36,0.447,35.552,0,35,0z M34,34H2V2h32V34z" />',
+      '  </g>',
+      '</svg>'
+    ].join(""));
+    this.btnStop.addEventListener("click", this.handleButtonClick("stop").bind(this), false);
+
     this.btnPlay = this.frame.createChild("div", {
       class: "svg-button"
     }, [
@@ -68,7 +77,7 @@ Toolbar.prototype = {
       '  </g>',
       '</svg>'
     ].join(""));
-    this.btnPlay.addEventListener("click", this.handlePlayClick.bind(this), false);
+    this.btnPlay.addEventListener("click", this.handleButtonClick("play").bind(this), false);
 
     this.btnPause = this.frame.createChild("div", {
       class: "svg-button"
@@ -80,7 +89,7 @@ Toolbar.prototype = {
       '  </g>',
       '</svg>'
     ].join(""));
-    this.btnPause.addEventListener("click", this.handlePauseClick.bind(this), false);
+    this.btnPause.addEventListener("click", this.handleButtonClick("pause").bind(this), false);
 
     this.btnNext = this.frame.createChild("div", {
       class: "svg-button"
@@ -93,18 +102,7 @@ Toolbar.prototype = {
       '  </g>',
       '</svg>'
     ].join(""));
-    this.btnNext.addEventListener("click", this.handleNextClick.bind(this), false);
-
-    this.btnStop = this.frame.createChild("div", {
-      class: "svg-button"
-    }, [
-      '<svg width="32" height="32" viewBox="0 0 36 36">',
-      '  <g fill="currentColor">',
-      '    <path d="M35,0H1C0.448,0,0,0.447,0,1v34c0,0.553,0.448,1,1,1h34c0.552,0,1-0.447,1-1V1C36,0.447,35.552,0,35,0z M34,34H2V2h32V34z" />',
-      '  </g>',
-      '</svg>'
-    ].join(""));
-    this.btnStop.addEventListener("click", this.handleStopClick.bind(this), false);
+    this.btnNext.addEventListener("click", this.handleButtonClick("next").bind(this), false);
 
     this.btnZoomIn = this.frame.createChild("div", {
       class: "svg-button"
@@ -120,5 +118,21 @@ Toolbar.prototype = {
       '  </g>',
       '</svg>'
     ].join(""));
+    this.btnZoomIn.addEventListener("click", this.handleButtonClick("zoomIn").bind(this), false);
+
+    this.btnZoomOut = this.frame.createChild("div", {
+      class: "svg-button"
+    }, [
+      '<svg width="32" height="32" viewBox="0 0 52.966 52.966">',
+      '  <g fill="currentColor">',
+      '    <path d="M28.983,20h-14c-0.552,0-1,0.448-1,1s0.448,1,1,1h14c0.552,0,1-0.448,1-1S29.535,20,28.983,20z"/>',
+      '    <path d="M51.704,51.273L36.845,35.82c3.79-3.801,6.138-9.041,6.138-14.82c0-11.58-9.42-21-21-21s-21,9.42-21,21s9.42,21,21,21',
+      '      c5.083,0,9.748-1.817,13.384-4.832l14.895,15.491c0.196,0.205,0.458,0.307,0.721,0.307c0.25,0,0.499-0.093,0.693-0.279',
+      '      C52.074,52.304,52.086,51.671,51.704,51.273z M2.983,21c0-10.477,8.523-19,19-19s19,8.523,19,19s-8.523,19-19,19',
+      '      S2.983,31.477,2.983,21z"/>',
+      '  </g>',
+      '</svg>'
+    ].join(""));
+    this.btnZoomOut.addEventListener("click", this.handleButtonClick("zoomOut").bind(this), false);
   }
 }

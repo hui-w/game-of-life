@@ -47,6 +47,9 @@ function matrix_main() {
     // Render the toolbar
     toolbar.onClick = function(cmd) {
       switch (cmd) {
+        case "add":
+          matrix.add();
+          break;
         case "play":
           matrix.play();
           break;
@@ -58,6 +61,12 @@ function matrix_main() {
           break;
         case "stop":
           matrix.stop();
+          break;
+        case "zoomIn":
+          Config.zoomIn();
+          break;
+        case "zoomOut":
+          Config.zoomOut();
           break;
         default:
           break;
