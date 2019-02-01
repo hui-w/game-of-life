@@ -181,6 +181,7 @@ Matrix.prototype = {
     var minionsCount = 200;
     var randStart = -9;
     var randEnd = 9;
+    this.minions = [];
     for (var i = 0; i <= minionsCount; i++) {
       var retryCount = 0;
       var x = rand(randStart, randEnd);
