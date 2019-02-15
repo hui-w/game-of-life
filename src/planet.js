@@ -185,7 +185,7 @@ Planet.prototype = {
     context.save();
     context.beginPath();
 
-    var unitSize = Config.Planet.gridSize;
+    var unitSize = Math.round(Config.Planet.gridSize * monitor.zoom);
 
     // Y0 is where the fist horizontal line starts
     var y0 = (Math.round(monitor.height / 2) - monitor.offsetY) % unitSize;

@@ -15,15 +15,12 @@ var Config = {
     gridSize: 200,
     keyboardChangeUnit: 10,
     keyboardTimerDelay: 50,
-    fontSize: 9
+    fontSize: 9,
+    zoomDelta: 0.2,
+    zoomMax: 2,
+    zoomMin: 0.5
   },
   Misc: {
     wrapperPadding: 0
   },
-  zoomIn: function() {
-    this.Planet.gridSize ++;
-  },
-  zoomOut: function() {
-    this.Planet.gridSize --;
-  }
 }

@@ -1,1 +1,1 @@
-/* game-of-life v0.1.0 | https://github.com/hui-w/game-of-life */
+/* game-of-life v0.1.1 | https://github.com/hui-w/game-of-life */

@@ -6,6 +6,7 @@
  * The class Monitor handles the user actions and perform the renderring
  */
 function Monitor(width, height) {
+  // Initial size of the monitor
   this.width = width;
   this.height = height;
 
@@ -33,10 +34,27 @@ function Monitor(width, height) {
   // Callback of redrawing
   this.onRedraw = null;
 
+  this.zoom = 1;
   this.matrixTimerCount = 0;
 }
 
 Monitor.prototype = {
+  zoomIn: function() {
+    if (this.zoom * (1 + Config.Monitor.zoomDelta) >= Config.Monitor.zoomMax) {
+      this.zoom = Config.Monitor.zoomMax;
+    } else {
+      this.zoom *= (1 + Config.Monitor.zoomDelta);
+    }
+  },
+
+  zoomOut: function() {
+    if (this.zoom * (1 - Config.Monitor.zoomDelta) <= Config.Monitor.zoomMin) {
+      this.zoom = Config.Monitor.zoomMin;
+    } else {
+      this.zoom *= (1 - Config.Monitor.zoomDelta);
+    }
+  },
+
   /* Mouse events */
   handleMouse: function(e, that) {
     switch (e.type) {
@@ -289,6 +307,12 @@ Monitor.prototype = {
 
   /* Clear the canvas and redraw the matrix */
   redraw: function() {
+    if (this.width === undefined || this.height === undefined) {
+      // Monitor is not initialized with width and height
+      // Waiting resize() to be invoked
+      return;
+    }
+
     //clear the existing display
     //this.context.clearRect(10, 10, this.width, this.height);
     this.canvas.width = this.canvas.width;
@@ -380,16 +404,16 @@ Monitor.prototype = {
   /* Get the position on the planet based on the position on the monitor */
   monitorToPlanet: function(mx, my) {
     return {
-      x: mx - Math.round(this.width / 2) + this.offsetX,
-      y: my - Math.round(this.height / 2) + this.offsetY
+      x: Math.round((mx - Math.round(this.width / 2) + this.offsetX) / this.zoom),
+      y: Math.round((my - Math.round(this.height / 2) + this.offsetY) / this.zoom)
     };
   },
 
   /* Get the position on the monitor based on the position on the planet */
   planetToMonitor: function(px, py) {
     return {
-      x: px + Math.round(this.width / 2) - this.offsetX,
-      y: py + Math.round(this.height / 2) - this.offsetY
+      x: Math.round(px * this.zoom) + Math.round(this.width / 2) - this.offsetX,
+      y: Math.round(py * this.zoom) + Math.round(this.height / 2) - this.offsetY
     };
   },
 

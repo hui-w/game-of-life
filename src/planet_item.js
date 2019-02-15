@@ -84,10 +84,10 @@ PlanetItem.prototype = {
     return {
       x: monitorPos.x,
       y: monitorPos.y,
-      width: this.pxSize.width,
-      height: this.pxSize.height,
-      right: monitorPos.x + this.pxSize.width,
-      bottom: monitorPos.y + this.pxSize.height
+      width: this.pxSize.width * monitor.zoom,
+      height: this.pxSize.height * monitor.zoom,
+      right: monitorPos.x + this.pxSize.width * monitor.zoom,
+      bottom: monitorPos.y + this.pxSize.height * monitor.zoom
     };
   },
 
@@ -98,13 +98,13 @@ PlanetItem.prototype = {
       this.pxPosition.y
     );
 
-    if (monitorPos.x + this.pxSize.width < 0) {
+    if (monitorPos.x + this.pxSize.width * monitor.zoom < 0) {
       return false;
-    } else if (monitorPos.x - this.pxSize.width >= monitor.width) {
+    } else if (monitorPos.x - this.pxSize.width * monitor.zoom >= monitor.width) {
       return false;
-    } else if (monitorPos.y + this.pxSize.height < 0) {
+    } else if (monitorPos.y + this.pxSize.height * monitor.zoom < 0) {
       return false;
-    } else if (monitorPos.y - this.pxSize.height >= monitor.height) {
+    } else if (monitorPos.y - this.pxSize.height * monitor.zoom >= monitor.height) {
       return false;
     }
 

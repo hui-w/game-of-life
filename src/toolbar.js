@@ -5,9 +5,9 @@
  *
  * The toolbar class
  */
-function Toolbar(matrix) {
+function Toolbar() {
   // Callback of button click
-  this.onClick = null;
+  this.onCommand = null;
 
   // Buttons
   this.btnAdd = null;
@@ -23,8 +23,8 @@ function Toolbar(matrix) {
 Toolbar.prototype = {
   handleButtonClick: function(key) {
     return function() {
-      if (typeof this.onClick === "function") {
-        this.onClick(key)
+      if (typeof this.onCommand === "function") {
+        this.onCommand(key)
       }
     }
   },
@@ -45,7 +45,7 @@ Toolbar.prototype = {
     });
 
     this.btnAdd = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 42 42">',
       '  <g fill="currentColor">',
@@ -56,7 +56,7 @@ Toolbar.prototype = {
     this.btnAdd.addEventListener("click", this.handleButtonClick("add").bind(this), false);
 
     this.btnStop = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 36 36">',
       '  <g fill="currentColor">',
@@ -67,7 +67,7 @@ Toolbar.prototype = {
     this.btnStop.addEventListener("click", this.handleButtonClick("stop").bind(this), false);
 
     this.btnPlay = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 41.999 41.999">',
       '  <g fill="currentColor">',
@@ -80,7 +80,7 @@ Toolbar.prototype = {
     this.btnPlay.addEventListener("click", this.handleButtonClick("play").bind(this), false);
 
     this.btnPause = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 42 42">',
       '  <g fill="currentColor">',
@@ -92,7 +92,7 @@ Toolbar.prototype = {
     this.btnPause.addEventListener("click", this.handleButtonClick("pause").bind(this), false);
 
     this.btnNext = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 42 42">',
       '  <g fill="currentColor">',
@@ -105,7 +105,7 @@ Toolbar.prototype = {
     this.btnNext.addEventListener("click", this.handleButtonClick("next").bind(this), false);
 
     this.btnZoomIn = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 52.966 52.966">',
       '  <g fill="currentColor">',
@@ -121,7 +121,7 @@ Toolbar.prototype = {
     this.btnZoomIn.addEventListener("click", this.handleButtonClick("zoomIn").bind(this), false);
 
     this.btnZoomOut = this.frame.createChild("div", {
-      class: "svg-button"
+      "class": "svg-button"
     }, [
       '<svg width="32" height="32" viewBox="0 0 52.966 52.966">',
       '  <g fill="currentColor">',

@@ -42,7 +42,7 @@ rm -f $OUT_DIR/temp.minified.js
 
 echo "Preparing static files..."
 cp $SRC_DIR/index_release.html $OUT_DIR/index.html
-cp $SRC_DIR/matrix.css $OUT_DIR/$FILE_NAME.min.css
+cp $SRC_DIR/style.css $OUT_DIR/$FILE_NAME.min.css
 
 cp $RES_DIR/apple-touch-icon.png $OUT_DIR/apple-touch-icon.png
 cp $RES_DIR/favicon16.png $OUT_DIR/favicon16.png

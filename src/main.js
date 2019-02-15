@@ -3,49 +3,42 @@
  * @repo https://github.com/hui-w/game-of-life
  * @licence MIT  
  */
-function matrix_main() {
-  var width = document.documentElement.clientWidth;
-  var height = document.documentElement.clientHeight;
+
+/* the entry of whole application */
+(function() {
+  var width = null;
+  var height = null;
+
   var matrix = null;
   var monitor = null;
   var toolbar = null;
 
   addEventListener("load", function() {
-    var wrapperPadding = Config.Misc.wrapperPadding;
+    matrix = new Matrix();
+    monitor = new Monitor();
+    toolbar = new Toolbar(matrix);
 
-    // Create the monitor wrapper
+    // Create the wrapper
+    // Render the monitor and toolbar
+    var wrapperPadding = Config.Misc.wrapperPadding;
     var rootElement = document.body;
     var newElement = document.createElement("div");
     newElement.style.padding = wrapperPadding + "px";
     rootElement.appendChild(newElement);
 
-    // Create the matrix and toolbar
-    matrix = new Matrix();
-    toolbar = new Toolbar();
+    monitor.renderInto(newElement);
     toolbar.renderInto(newElement);
+
+    // Attach the matrix events
     matrix.onStatusChanged = function(status) {
       toolbar.setStatus(status);
     };
-    matrix.init();
-
-    // Crate the monitor and render the planet into the monitor
-    var monitorWidth = width - wrapperPadding * 2;
-    var monitorHeight = height - wrapperPadding * 2;
-    monitor = new Monitor(monitorWidth, monitorHeight);
-    monitor.renderInto(newElement);
-
-    // Attach the monitor event
-    monitor.onRedraw = function() {
-      matrix.render(monitor);
-    };
-
-    // Attach the matrix timer tick handler
     matrix.onTimerTick = function(timerCount) {
       monitor.setMatrixTimerCount(timerCount);
     }
 
-    // Render the toolbar
-    toolbar.onClick = function(cmd) {
+    // Attach the toolbar events
+    toolbar.onCommand = function(cmd) {
       switch (cmd) {
         case "add":
           matrix.add();
@@ -63,15 +56,26 @@ function matrix_main() {
           matrix.stop();
           break;
         case "zoomIn":
-          Config.zoomIn();
+          monitor.zoomIn();
           break;
         case "zoomOut":
-          Config.zoomOut();
+          monitor.zoomOut();
           break;
         default:
           break;
       }
     };
+
+    // Attach the monitor events
+    monitor.onRedraw = function() {
+      matrix.render(monitor);
+    };
+
+    // Init the matrix
+    matrix.init();
+
+    // Init the monitor immediately
+    checkWindowsize();
 
     // Check if the window size is changed
     setInterval(checkWindowsize, 200);
@@ -84,10 +88,9 @@ function matrix_main() {
     if (nwidth != width || nheight != height) {
       width = nwidth;
       height = nheight;
-      monitor.resize(width - wrapperPadding * 2, height - wrapperPadding * 2);
+      var monitorWidth = width - wrapperPadding * 2;
+      var monitorHeight = height - wrapperPadding * 2;
+      monitor.resize(monitorWidth, monitorHeight);
     }
   };
-}
-
-/* the entry of whole application */
-matrix_main();
+})();
