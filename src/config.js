@@ -23,4 +23,4 @@ var Config = {
   Misc: {
     wrapperPadding: 0
   },
-}
+};
